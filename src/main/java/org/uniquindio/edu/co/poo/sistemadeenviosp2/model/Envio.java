@@ -1,4 +1,4 @@
-package org.uniquindio.edu.co.poo.sistemadeenviosp2;
+package org.uniquindio.edu.co.poo.sistemadeenviosp2.model;
 
 public class Envio {
     private String idEnvio;

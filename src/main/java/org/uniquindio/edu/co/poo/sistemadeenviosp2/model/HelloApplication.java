@@ -1,4 +1,4 @@
-package org.uniquindio.edu.co.poo.sistemadeenviosp2;
+package org.uniquindio.edu.co.poo.sistemadeenviosp2.model;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
