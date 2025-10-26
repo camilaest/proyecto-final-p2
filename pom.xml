@@ -65,7 +65,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.uniquindio.edu.co.poo.sistemadeenviosp2/org.uniquindio.edu.co.poo.sistemadeenviosp2.HelloApplication
+                                org.uniquindio.edu.co.poo.sistemadeenviosp2/org.uniquindio.edu.co.poo.sistemadeenviosp2.model.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
