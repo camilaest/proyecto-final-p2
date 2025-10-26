@@ -7,10 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.controller.PrimaryController;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Administrador;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.CrudClienteViewController;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.IniciarSesionViewController;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.PrimaryViewController;
 
 import java.io.IOException;
@@ -30,6 +29,8 @@ public class App extends Application {
         this.primaryStage.setTitle("Sistema de Envíos");
         openPrimary();
     }
+
+
 
 
     public void openPrimary() {
@@ -58,13 +59,32 @@ public class App extends Application {
 
 
 
+    public void openIniciarSesion() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/iniciarSesion.fxml"));
+            Parent root = loader.load();
+
+            IniciarSesionViewController controller = loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void openCrudCliente() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
                     "/org/uniquindio/edu/co/poo/sistemadeenviosp2/crudCliente.fxml"));
             Parent root = loader.load();
 
-            CrudClienteViewController controller = loader.getController();
+            CrudClienteViewController controller= loader.getController();
             controller.setApp(this);
             controller.setDataBase(db);
 
@@ -80,11 +100,6 @@ public class App extends Application {
     public static void main(String[] args) { launch(args); }
 
     public void inicializarData(){
-        Administrador admin1 = new Administrador("Maria", "123", "300273", "maria@", 20, "mar57", "666");
-        Cliente cliente1 = new Cliente ("santiago", "444", "555", "santi@", 24, "santi21", "2021");
-        db.agregarCliente(cliente1);
-
-
 
     }
 }

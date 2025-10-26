@@ -20,7 +20,7 @@ public class PrimaryViewController {
     }
 
     @FXML
-    private Button buttonAdmin;
+    private Button buttonEntrar;
 
     @FXML
     private Label lblIngresar;
@@ -29,8 +29,8 @@ public class PrimaryViewController {
     private Label lblTitulo;
 
     @FXML
-    void onOpenCrudCliente(ActionEvent event) {
-        app.openCrudCliente();
+    void onOpenEntrar(ActionEvent event) {
+        app.openIniciarSesion();
     }
 
     public void setApp(App app) {

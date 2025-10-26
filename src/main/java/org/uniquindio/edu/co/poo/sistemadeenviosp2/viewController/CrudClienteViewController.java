@@ -11,6 +11,7 @@ import org.uniquindio.edu.co.poo.sistemadeenviosp2.App;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.controller.CrudClienteController;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.TipoUsuario;
 
 public class CrudClienteViewController {
 
@@ -62,6 +63,9 @@ public class CrudClienteViewController {
     private Label lblUsuario;
 
     @FXML
+    private Label lbledad;
+
+    @FXML
     private TableView<Cliente> tblCliente;
 
     @FXML
@@ -83,7 +87,25 @@ public class CrudClienteViewController {
     private TextField txtUsuario;
 
     @FXML
+    private TextField txtEdad;
+
+    @FXML
     void onEliminarCliente(ActionEvent event) {
+        Cliente seleccionado = tblCliente.getSelectionModel().getSelectedItem();
+
+        if (seleccionado == null) {
+            mostrarAlerta("Error Debe seleccionar un cliente para eliminarlo");
+            return;
+        }
+
+        // Eliminar directamente de la base de datos y de la lista observable
+        db.getListaClientes().remove(seleccionado);
+        listaClientes.remove(seleccionado);
+
+        mostrarAlerta("Éxito Cliente eliminado correctamente");
+
+        // (opcional) limpiar campos después de eliminar
+        limpiarCampos();
 
     }
 
@@ -119,18 +141,30 @@ public class CrudClienteViewController {
         String cedula = txtCedula.getText();
         String telefono = txtTelefono.getText();
         String email = txtEmail.getText();
-
-
         String usuario = txtUsuario.getText();
-        String contrasena = txtContraseña.getText();
+        String contraseña = txtContraseña.getText();
+        String edad = txtEdad.getText().trim();
 
-        if (nombre.isEmpty() || cedula.isEmpty()) {
-            mostrarAlerta("Por favor completa al menos el nombre y la cédula.");
+        if (nombre.isEmpty() || cedula.isEmpty() || telefono.isEmpty() ||
+                email.isEmpty() || usuario.isEmpty() || contraseña.isEmpty() || edad.isEmpty()) {
+            mostrarAlerta("Error Debe llenar todos los campos antes de registrar");
             return;
         }
 
-        Cliente nuevo = new Cliente(nombre, cedula, telefono, email,12,  usuario, contrasena);
+        int edadP;
+        try {
+            edadP = Integer.parseInt(edad);
+            if (edadP < 0) throw new NumberFormatException();
+        } catch (NumberFormatException ex) {
+            mostrarAlerta("Error Edad debe ser un número entero válido (≥ 0)");
+            txtEdad.requestFocus();
+            return;
+        }
+
+        Cliente nuevo = new Cliente(nombre, cedula, telefono, email, edadP,  usuario, contraseña, TipoUsuario.CLIENTE);
+        //como manejar edad, edad no se limpia en la tabla ???
         db.agregarCliente(nuevo); // se agrega a la lista observable
+        listaClientes.add(nuevo);
         limpiarCampos();
 
     }
@@ -161,11 +195,13 @@ public class CrudClienteViewController {
         txtEmail.clear();
         txtUsuario.clear();
         txtContraseña.clear();
+        txtEdad.clear();
+
     }
 
     private void mostrarAlerta(String mensaje) {
         Alert alerta = new Alert(Alert.AlertType.WARNING);
-        alerta.setTitle("Campos incompletos");
+        alerta.setTitle("Alerta");
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();

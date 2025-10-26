@@ -6,8 +6,9 @@ public class Usuario {
     private String telefono;
     private String email;
     private int edad;
-    private String usuario;
+    private String usuarioSesion;
     private String contraseña;
+    private TipoUsuario tipoUsuario;
 
     /**
      * @param nombreCompleto
@@ -15,21 +16,38 @@ public class Usuario {
      * @param telefono
      * @param email
      * @param edad
-     * @param usuario
+     * @param usuarioSesion
      * @param contraseña
      */
 
 
-    public Usuario (String nombreCompleto, String id, String telefono, String email, int edad, String usuario, String contraseña) {
+    public Usuario (String nombreCompleto, String id, String telefono, String email, int edad, String usuarioSesion, String contraseña, TipoUsuario tipoUsuario) {
         this.nombreCompleto = nombreCompleto;
         this.id           = id;
         this.telefono    = telefono;
         this.email         = email;
         this.edad          = edad;
-        this.usuario         = usuario;
+        this.usuarioSesion         = usuarioSesion;
         this.contraseña = contraseña;
+        this.tipoUsuario = tipoUsuario;
 
 
+    }
+
+    public String getUsuarioSesion() {
+        return usuarioSesion;
+    }
+
+    public void setUsuarioSesion(String usuarioSesion) {
+        this.usuarioSesion = usuarioSesion;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     public String getNombreCompleto() {
@@ -75,11 +93,11 @@ public class Usuario {
     }
 
     public String getUsuario() {
-        return usuario;
+        return usuarioSesion;
     }
 
     public void setUsuario(String usuario) {
-        this.usuario = usuario;
+        this.usuarioSesion = usuario;
     }
 
     public String getContraseña() {
@@ -99,7 +117,7 @@ public class Usuario {
                 ", telefono='" + telefono + '\'' +
                 ", email='" + email + '\'' +
                 ", edad=" + edad +
-                ", usuario='" + usuario + '\'' +
+                ", usuario='" + usuarioSesion + '\'' +
                 ", contraseña='" + contraseña + '\'' +
 
                 '}';

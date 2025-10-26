@@ -69,7 +69,7 @@ public class DataBase {
         this.listaEnvios = listaEnvios;
     }
 
-    //CRUD USUARIO
+    //CRUD CLIENTE
     public boolean agregarCliente(Cliente cliente ) {
         boolean centinela = false;
         if (!verificarCliente(cliente.getId())) {
@@ -121,13 +121,33 @@ public class DataBase {
     }
 
     private void inicializarDatos(){
-        Cliente cliente1 = new Cliente("Maria", "123", "3003", "maria@", 12, "mariaest", "88");
+        Cliente cliente1 = new Cliente("Maria", "123", "3003", "maria@", 12, "mar", "77", TipoUsuario.CLIENTE);
         listaClientes.add(cliente1);
 
-        Administrador admin1 = new Administrador("Maria", "123", "3003", "maria@", 12, "mariaest", "88");
+        Administrador admin1 = new Administrador("Maria", "123", "3003", "maria@", 12, "mariaest", "88", TipoUsuario.ADMINISTRADOR);
         listaAdministrador.add(admin1);
 
 
+    }
+
+    //CRUD ADMIN
+    public boolean agregarAdmin(Administrador admin ) {
+        boolean centinela = false;
+        if (!verificarAdministrador(admin.getId())) {
+            listaAdministrador.add(admin);
+            centinela = true;
+        }
+        return centinela;
+    }
+
+    public boolean verificarAdministrador(String identificacion) {
+        boolean centinela = false;
+        for (Administrador administrador : listaAdministrador) {
+            if (administrador.getId().equals(identificacion)) {
+                centinela = true;
+            }
+        }
+        return centinela;
     }
 
 
