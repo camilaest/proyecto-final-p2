@@ -25,6 +25,12 @@ public class Direccion {
         return destino;
     }
 
+    // Setters
+    public void setAlias(String alias) { this.alias = alias; }
+    public void setId(String id) { this.id = id; }
+    public void setOrigen(String origen) { this.origen = origen; }
+    public void setDestino(String destino) { this.destino = destino; }
+
     public static class Builder{
         private String origen;
         private String destino;
