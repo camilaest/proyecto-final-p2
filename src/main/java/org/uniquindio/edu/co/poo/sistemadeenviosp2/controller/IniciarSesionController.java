@@ -49,8 +49,29 @@ public class IniciarSesionController {
             }
         }
 
-        return null; // No coincide con ningún usuario
+        return null;
+    }
+
+    public Cliente obtenerCliente(String usuario, String contraseña) {
+        // Busca en la lista de clientes por las credenciales
+        for (Cliente c : getDb().getListaClientes()) {
+            if (c.getUsuario().equals(usuario) && c.getContraseña().equals(contraseña)) {
+                return c;
+            }
+        }
+        return null;
     }
 
 
+    public Administrador obtenerAdministrador(String usuario, String contraseña) {
+
+        for (Administrador administrador : getDb().getListaAdministrador()) {
+            if (administrador.getUsuario().equals(usuario) && administrador.getContraseña().equals(contraseña)) {
+                return administrador;
+            }
+        }
+        return null;
+
+
+    }
 }

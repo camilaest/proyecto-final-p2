@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.App;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.controller.CrudClienteController;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Administrador;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.TipoUsuario;
@@ -17,12 +18,17 @@ public class CrudClienteViewController {
 
     private App app;
     private DataBase db;
+    private Administrador administrador;
+
     ObservableList<Cliente> listaClientes = FXCollections.observableArrayList();
     private Cliente selectCliente;
     private CrudClienteController crudClienteController;
 
     @FXML
     private Button btnEliminarCliente;
+
+    @FXML
+    private Button btnDirecciones;
 
     @FXML
     private Button btnRegistrarCliente;
@@ -89,6 +95,17 @@ public class CrudClienteViewController {
     @FXML
     private TextField txtEdad;
 
+
+    @FXML
+    void onGestionarDirecciones(ActionEvent e) {
+        Cliente seleccionado = tblCliente.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta("Selecciona un cliente primero");
+            return;
+        }
+        app.openGestionDireccion(seleccionado);
+    }
+
     @FXML
     void onEliminarCliente(ActionEvent event) {
         Cliente seleccionado = tblCliente.getSelectionModel().getSelectedItem();
@@ -98,13 +115,13 @@ public class CrudClienteViewController {
             return;
         }
 
-        // Eliminar directamente de la base de datos y de la lista observable
+
         db.getListaClientes().remove(seleccionado);
         listaClientes.remove(seleccionado);
 
         mostrarAlerta("Éxito Cliente eliminado correctamente");
 
-        // (opcional) limpiar campos después de eliminar
+
         limpiarCampos();
 
     }
@@ -171,7 +188,7 @@ public class CrudClienteViewController {
 
     @FXML
     void onRegresarRegistroCliente(ActionEvent event) {
-        app.openPrimary();
+        app.openFuncionesAdministrador(administrador);
     }
 
     public void setApp(App app) {
@@ -205,5 +222,33 @@ public class CrudClienteViewController {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    public void onActualizar(ActionEvent actionEvent) {
+        Cliente seleccionado = tblCliente.getSelectionModel().getSelectedItem();
+
+        if (seleccionado == null) {
+            mostrarAlerta("Error Debe seleccionar un cliente para actualizar");
+            return;
+        }
+
+        Cliente nuevosDatos = new Cliente(
+                txtNombreCompelto.getText(),
+                txtCedula.getText(),
+                txtTelefono.getText(),
+                txtEmail.getText(),
+                Integer.parseInt(txtEdad.getText()),
+                txtUsuario.getText(),
+                txtContraseña.getText(),
+                TipoUsuario.CLIENTE
+        );
+
+        crudClienteController.actualizarCliente(seleccionado, nuevosDatos);
+        tblCliente.refresh();
+
+        mostrarAlerta("Éxito Cliente actualizado correctamente");
+        limpiarCampos();
+
+
     }
 }

@@ -127,6 +127,10 @@ public class DataBase {
         Administrador admin1 = new Administrador("Maria", "123", "3003", "maria@", 12, "mariaest", "88", TipoUsuario.ADMINISTRADOR);
         listaAdministrador.add(admin1);
 
+        Repartidor repartidor = new Repartidor("Claudia", "41871", "311401", "Claudia@est.com", 34, "claudia00");
+        listaRepartidores.add(repartidor);
+        repartidor.setDisponibilidad(Disponibilidad.INACTIVO);
+
 
     }
 
@@ -149,6 +153,57 @@ public class DataBase {
         }
         return centinela;
     }
+
+    //CRUD REPARTIDOR
+
+    public boolean agregarRepartidor(Repartidor repartidor) {
+        boolean centinela = false;
+        if (!verificarRepartidor(repartidor.getId())) {
+            listaRepartidores.add(repartidor);
+            centinela = true;
+        }
+        return centinela;
+    }
+
+    public boolean verificarRepartidor(String identificacion) {
+        boolean centinela = false;
+        for (Repartidor repartidor : listaRepartidores) {
+            if (repartidor.getId().equals(identificacion)) {
+                centinela = true;
+            }
+        }
+        return centinela;
+    }
+
+    public boolean actualizarRepartidor(String identificacion, Repartidor repartidorActualizar) {
+        boolean centinela = false;
+        for (Repartidor repartidor : listaRepartidores) {
+            if (repartidor.getId().equals(identificacion)) {
+                repartidor.setNombre(repartidorActualizar.getNombre());
+                repartidor.setId(repartidorActualizar.getId());
+                repartidor.setEmail(repartidorActualizar.getEmail());
+                repartidor.setTelefono(repartidorActualizar.getTelefono());
+                repartidor.setEdad(repartidorActualizar.getEdad());
+                repartidor.setIdRepartidor(repartidorActualizar.getIdRepartidor());
+                centinela = true;
+                break;
+            }
+        }
+        return centinela;
+    }
+
+    public boolean eliminarRepartidor(String id) {
+        boolean centinela = false;
+        for (Repartidor repartidor : listaRepartidores) {
+            if (repartidor.getId().equals(id)) {
+                listaRepartidores.remove(repartidor);
+                centinela = true;
+                break;
+            }
+        }
+        return centinela;
+    }
+
 
 
 }

@@ -2,11 +2,10 @@ package org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.App;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Administrador;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.TipoUsuario;
 
@@ -18,6 +17,21 @@ public class IniciarSesionViewController {
 
     @FXML
     private Button btnIniciarSesion;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private Button toggleButton;
+    @FXML
+    private TextField textField;
+
+    private boolean passwordVisible = false;
+
+    @FXML
+    public void initialize() {
+        textField.textProperty().bindBidirectional(passwordField.textProperty());
+    }
 
     @FXML
     private Label txtAdministrador;
@@ -34,7 +48,8 @@ public class IniciarSesionViewController {
     @FXML
     void onIniciarSesion(ActionEvent event) {
         String usuario = txtUsuarioSesion.getText().trim();
-        String contraseña = txtContraseña.getText().trim();
+        //String contraseña = txtContraseña.getText().trim();
+        String contraseña = passwordField.isVisible() ? passwordField.getText() : textField.getText();
 
         if (usuario.isEmpty() || contraseña.isEmpty()) {
             mostrarAlerta("Error", "Debe ingresar usuario y contraseña");
@@ -46,7 +61,7 @@ public class IniciarSesionViewController {
         TipoUsuario tipo = iniciarSesionController.obtenerTipoUsuario(usuario, contraseña);
 
         if (tipo == null) {
-            // Si no se encontró el usuario
+
             mostrarAlerta("Acceso denegado", "Usuario o contraseña incorrectos");
             txtUsuarioSesion.clear();
             txtContraseña.clear();
@@ -57,11 +72,14 @@ public class IniciarSesionViewController {
         // Redirigir según el tipo de usuario
         switch (tipo) {
             case ADMINISTRADOR:
-                app.openCrudCliente();  // Interfaz del administrador
+                Administrador administrador = iniciarSesionController.obtenerAdministrador(usuario, contraseña);
+                app.openFuncionesAdministrador(administrador);  // Interfaz del administrador
                 System.out.println("es admin");
                 break;
             case CLIENTE:
-                app.openCrudCliente();  // Debes crear este método en App
+                Cliente cliente = iniciarSesionController.obtenerCliente(usuario, contraseña);
+                app.openFuncionesCliente(cliente);
+
                 System.out.println("es cliente");
                 break;
             default:
@@ -87,5 +105,24 @@ public class IniciarSesionViewController {
 
     public void setDataBase(DataBase db) {
         this.db = db;
+    }
+
+
+    public void ocultarContraseña(ActionEvent actionEvent) {
+        passwordVisible = !passwordVisible;
+
+        if (passwordVisible) {
+            textField.setVisible(true);
+            textField.setManaged(true);
+            passwordField.setVisible(false);
+            passwordField.setManaged(false);
+            toggleButton.setText("🙈");
+        } else {
+            textField.setVisible(false);
+            textField.setManaged(false);
+            passwordField.setVisible(true);
+            passwordField.setManaged(true);
+            toggleButton.setText("👁️");
+        }
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="464.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.CrudRepartidorViewController">
+   <children>
+      <Label layoutX="306.0" layoutY="30.0" text="Registrar Repartidor" textFill="#16c4f5">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnRegresar" layoutX="35.0" layoutY="27.0" mnemonicParsing="false" onAction="#onRegresar" text="Regresar" />
+      <Label fx:id="lblNombreCompleto" layoutX="21.0" layoutY="82.0" text="Nombre Completo: " />
+      <Label fx:id="lblTelefono" layoutX="21.0" layoutY="126.0" text="Telefono: " />
+      <Label fx:id="lblCedula" layoutX="21.0" layoutY="176.0" text="Cedula: " />
+      <Label fx:id="lblEmail" layoutX="331.0" layoutY="82.0" text="Email: " />
+      <Label fx:id="lblEdad" layoutX="328.0" layoutY="126.0" text="Edad: " />
+      <Label fx:id="lblIdRepartidor" layoutX="328.0" layoutY="176.0" text="iD Repartidor:" />
+      <Label fx:id="lblEstadoDisponibilidad" layoutX="21.0" layoutY="223.0" text="Estado Disponibilidad: " />
+      <TextField fx:id="txtNombre" layoutX="139.0" layoutY="78.0" />
+      <TextField fx:id="txtTelefono" layoutX="140.0" layoutY="131.0" />
+      <TextField fx:id="txtCedula" layoutX="140.0" layoutY="172.0" />
+      <TextField fx:id="txtEmail" layoutX="415.0" layoutY="78.0" />
+      <TextField fx:id="txtEdad" layoutX="415.0" layoutY="122.0" />
+      <TextField fx:id="txtIdRepartidor" layoutX="415.0" layoutY="172.0" />
+      <ComboBox fx:id="txtEstadoDisponibilidad" layoutX="150.0" layoutY="220.0" prefWidth="150.0" />
+      <Button fx:id="btnRegistrar" layoutX="602.0" layoutY="78.0" mnemonicParsing="false" onAction="#onRegistrar" text="Registrar" />
+      <TableView fx:id="tblRepartidor" layoutX="14.0" layoutY="246.0" prefHeight="200.0" prefWidth="661.0">
+        <columns>
+          <TableColumn fx:id="columNombre" prefWidth="75.0" text="Nombre" />
+          <TableColumn fx:id="columTelefono" prefWidth="75.0" text="Telefono" />
+            <TableColumn fx:id="columCedula" prefWidth="75.0" text="Cedula" />
+            <TableColumn fx:id="columEmail" prefWidth="75.0" text="Email" />
+            <TableColumn fx:id="columEdad" prefWidth="75.0" text="Edad" />
+            <TableColumn fx:id="columIdRepartidor" prefWidth="141.60001220703123" text="Id Repartidor" />
+            <TableColumn fx:id="columDisponibilidad" prefWidth="141.60001220703123" text="Disponibilidad" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnEliminar" layoutX="604.0" layoutY="122.0" mnemonicParsing="false" onAction="#onEliminar" text="Eliminar" />
+      <Button fx:id="btnActualizar" layoutX="599.0" layoutY="172.0" mnemonicParsing="false" onAction="#onActualizar" text="Actualizar" />
+   </children>
+</AnchorPane>

@@ -7,10 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.controller.PrimaryController;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Administrador;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.CrudClienteViewController;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.IniciarSesionViewController;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.PrimaryViewController;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.*;
 
 import java.io.IOException;
 
@@ -29,9 +29,6 @@ public class App extends Application {
         this.primaryStage.setTitle("Sistema de Envíos");
         openPrimary();
     }
-
-
-
 
     public void openPrimary() {
         inicializarData();
@@ -52,12 +49,6 @@ public class App extends Application {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }}
-
-
-
-
-
-
 
     public void openIniciarSesion() {
         try {
@@ -96,6 +87,85 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
+
+    public void openGestionDireccion(Cliente cliente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/gestionDireccion.fxml"));
+            Parent root = loader.load();
+
+            GestionDireccionViewController controller = loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+            controller.setCliente(cliente);
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openFuncionesCliente(Cliente cliente) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/funcionesCliente.fxml"));
+            Parent root = loader.load();
+
+            FuncionesClienteViewController controller= loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+            controller.setCliente(cliente);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openFuncionesAdministrador(Administrador administrador) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/funcionesAdministrador.fxml"));
+            Parent root = loader.load();
+
+            FuncionesAdministradorViewController controller= loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+            controller.setAdministrador(administrador);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openCrudRepartidor() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/crudRepartidor.fxml"));
+            Parent root = loader.load();
+
+            CrudRepartidorViewController controller= loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static void main(String[] args) { launch(args); }
 
