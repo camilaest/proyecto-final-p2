@@ -10,6 +10,7 @@ import org.uniquindio.edu.co.poo.sistemadeenviosp2.controller.PrimaryController;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Administrador;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Repartidor;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.*;
 
 import java.io.IOException;
@@ -88,6 +89,25 @@ public class App extends Application {
         }
     }
 
+    public void openCrudRepartidor() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/crudRepartidor.fxml"));
+            Parent root = loader.load();
+
+            CrudRepartidorViewController controller= loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void openGestionDireccion(Cliente cliente) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -146,13 +166,13 @@ public class App extends Application {
         }
     }
 
-    public void openCrudRepartidor() {
+    public void openFuncionesRepartidor(Repartidor repartidor) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/crudRepartidor.fxml"));
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/funcionesRepartidor.fxml"));
             Parent root = loader.load();
 
-            CrudRepartidorViewController controller= loader.getController();
+            FuncionesRepartidorViewController controller= loader.getController();
             controller.setApp(this);
             controller.setDataBase(db);
 
@@ -167,9 +187,16 @@ public class App extends Application {
 
 
 
+
+
+
+
+
     public static void main(String[] args) { launch(args); }
 
     public void inicializarData(){
 
     }
+
+
 }

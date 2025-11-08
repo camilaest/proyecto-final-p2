@@ -103,6 +103,11 @@ public class CrudRepartidorViewController {
     private TextField txtTelefono;
 
     @FXML
+    private TextField txtUsuario;
+    @FXML
+    private TextField txtContraseña;
+
+    @FXML
     void onActualizar(ActionEvent event) {
         Repartidor seleccionado = tblRepartidor.getSelectionModel().getSelectedItem();
 
@@ -117,6 +122,9 @@ public class CrudRepartidorViewController {
                 txtTelefono.getText(),
                 txtEmail.getText(),
                 Integer.parseInt(txtEdad.getText()),
+                txtUsuario.getText(),
+                txtContraseña.getText(),
+                TipoUsuario.ADMINISTRADOR,
                 txtIdRepartidor.getText()
                 //txtEstadoDisponibilidad.getItems()
         );
@@ -158,6 +166,9 @@ public class CrudRepartidorViewController {
         String edad = txtEdad.getText().trim();
         String idRepartidor = txtIdRepartidor.getText();
         Disponibilidad  disponibilidad = txtEstadoDisponibilidad.getValue();
+        String usuario = txtUsuario.getText();
+        String contraseña = txtContraseña.getText();
+
 
 
         if (nombre.isEmpty() || cedula.isEmpty() || telefono.isEmpty() ||
@@ -176,7 +187,7 @@ public class CrudRepartidorViewController {
             return;
         }
 
-        Repartidor nuevo = new Repartidor(nombre, cedula, telefono, email, edadP, idRepartidor);
+        Repartidor nuevo = new Repartidor(nombre, cedula, telefono, email, edadP, usuario, contraseña, TipoUsuario.REPARTIDOR, idRepartidor);
         nuevo.setDisponibilidad(txtEstadoDisponibilidad.getValue()); //setear la disponibilidad cuando se crea a repartidor
         //como manejar edad, edad no se limpia en la tabla ???
         db.agregarRepartidor(nuevo); // se agrega a la lista observable
@@ -235,7 +246,7 @@ public class CrudRepartidorViewController {
     }
 
     private void initBinding() {
-        columNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        columNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombreCompleto()));
         columCedula.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         columIdRepartidor.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdRepartidor()));
         columEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));

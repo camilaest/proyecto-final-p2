@@ -127,7 +127,7 @@ public class DataBase {
         Administrador admin1 = new Administrador("Maria", "123", "3003", "maria@", 12, "mariaest", "88", TipoUsuario.ADMINISTRADOR);
         listaAdministrador.add(admin1);
 
-        Repartidor repartidor = new Repartidor("Claudia", "41871", "311401", "Claudia@est.com", 34, "claudia00");
+        Repartidor repartidor = new Repartidor("Claudia", "41871", "311401", "Claudia@est.com", 34, "claudia00", "33", TipoUsuario.REPARTIDOR, "repartidor1");
         listaRepartidores.add(repartidor);
         repartidor.setDisponibilidad(Disponibilidad.INACTIVO);
 
@@ -179,7 +179,7 @@ public class DataBase {
         boolean centinela = false;
         for (Repartidor repartidor : listaRepartidores) {
             if (repartidor.getId().equals(identificacion)) {
-                repartidor.setNombre(repartidorActualizar.getNombre());
+                repartidor.setNombreCompleto(repartidorActualizar.getNombreCompleto());
                 repartidor.setId(repartidorActualizar.getId());
                 repartidor.setEmail(repartidorActualizar.getEmail());
                 repartidor.setTelefono(repartidorActualizar.getTelefono());

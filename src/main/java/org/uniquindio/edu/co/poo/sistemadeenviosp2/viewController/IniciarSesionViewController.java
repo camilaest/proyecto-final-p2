@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.App;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Administrador;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.TipoUsuario;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.*;
 
 public class IniciarSesionViewController {
 
@@ -82,6 +79,13 @@ public class IniciarSesionViewController {
 
                 System.out.println("es cliente");
                 break;
+
+            case REPARTIDOR:
+                Repartidor repartidor = iniciarSesionController.obtenerRepartidor(usuario, contraseña);
+                app.openFuncionesRepartidor(repartidor);
+                System.out.println("es repartidor");
+                break;
+
             default:
                 mostrarAlerta("Error", "Tipo de usuario no reconocido");
                 break;

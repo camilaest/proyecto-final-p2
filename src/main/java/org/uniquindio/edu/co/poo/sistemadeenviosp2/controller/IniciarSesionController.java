@@ -1,10 +1,7 @@
 package org.uniquindio.edu.co.poo.sistemadeenviosp2.controller;
 
 import javafx.event.ActionEvent;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Administrador;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.TipoUsuario;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.*;
 
 public class IniciarSesionController {
 
@@ -48,7 +45,11 @@ public class IniciarSesionController {
                 return TipoUsuario.CLIENTE;
             }
         }
-
+        for (Repartidor r : db.getListaRepartidores()) {
+            if (usuario.equals(r.getUsuario()) && contraseña.equals(r.getContraseña())) {
+                return TipoUsuario.REPARTIDOR;
+            }
+        }
         return null;
     }
 
@@ -74,4 +75,17 @@ public class IniciarSesionController {
 
 
     }
+
+    public Repartidor obtenerRepartidor(String usuario, String contraseña) {
+
+        for (Repartidor repartidor : getDb().getListaRepartidores()) {
+            if (repartidor.getUsuario().equals(usuario) && repartidor.getContraseña().equals(contraseña)) {
+                return repartidor;
+            }
+        }
+        return null;
+
+
+    }
+
 }

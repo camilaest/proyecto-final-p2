@@ -25,7 +25,7 @@ public class CrudRepartidorController {
     }
 
     public void actualizarRepartidor(Repartidor existente, Repartidor nuevosDatos) {
-        existente.setNombre(nuevosDatos.getNombre());
+        existente.setNombreCompleto(nuevosDatos.getNombreCompleto());
         existente.setId(nuevosDatos.getId());
         existente.setTelefono(nuevosDatos.getTelefono());
         existente.setEmail(nuevosDatos.getEmail());

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="464.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.CrudRepartidorViewController">
+<AnchorPane prefHeight="464.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.CrudRepartidorViewController">
    <children>
       <Label layoutX="306.0" layoutY="30.0" text="Registrar Repartidor" textFill="#16c4f5">
          <font>
@@ -45,5 +45,9 @@
       </TableView>
       <Button fx:id="btnEliminar" layoutX="604.0" layoutY="122.0" mnemonicParsing="false" onAction="#onEliminar" text="Eliminar" />
       <Button fx:id="btnActualizar" layoutX="599.0" layoutY="172.0" mnemonicParsing="false" onAction="#onActualizar" text="Actualizar" />
+      <Label fx:id="lblUsuario" layoutX="324.0" layoutY="223.0" text="Usuario:" />
+      <TextField fx:id="txtUsuario" layoutX="376.0" layoutY="219.0" />
+      <Label fx:id="lblContraseña" layoutX="535.0" layoutY="223.0" text="Contraseña:" />
+      <TextField fx:id="txtContraseña" layoutX="601.0" layoutY="219.0" />
    </children>
 </AnchorPane>
