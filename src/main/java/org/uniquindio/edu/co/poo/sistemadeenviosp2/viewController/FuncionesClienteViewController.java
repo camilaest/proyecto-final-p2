@@ -51,7 +51,7 @@ public class FuncionesClienteViewController {
 
     @FXML
     void onSolicitarPedido(ActionEvent event) {
-
+        app.openSolicitarEnvio();
     }
 
     public void setDataBase(DataBase db) {

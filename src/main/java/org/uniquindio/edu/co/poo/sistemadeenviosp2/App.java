@@ -108,6 +108,25 @@ public class App extends Application {
         }
     }
 
+    public void openSolicitarEnvio() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/solicitudDeEnvio.fxml"));
+            Parent root = loader.load();
+
+            SolicitudDeEnvioViewController controller= loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void openGestionDireccion(Cliente cliente) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
