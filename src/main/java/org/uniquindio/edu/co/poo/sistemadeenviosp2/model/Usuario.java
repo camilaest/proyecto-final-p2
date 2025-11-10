@@ -1,6 +1,6 @@
 package org.uniquindio.edu.co.poo.sistemadeenviosp2.model;
 
-public class Usuario {
+public abstract class Usuario {
     private String nombreCompleto;
     private String id;
     private String telefono;
@@ -30,7 +30,6 @@ public class Usuario {
         this.usuarioSesion         = usuarioSesion;
         this.contraseña = contraseña;
         this.tipoUsuario = tipoUsuario;
-
 
     }
 

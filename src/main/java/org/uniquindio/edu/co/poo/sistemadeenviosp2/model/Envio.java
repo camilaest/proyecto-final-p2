@@ -6,6 +6,7 @@ public class Envio {
     private String direccionDestino;
     private long costo;
     private EstadoEnvio estadoEnvio;
+
     public Envio(Builder builder) {
         this.idEnvio = builder.idEnvio;
         this.direccionOrigen = builder.direccionOrigen;
@@ -13,6 +14,21 @@ public class Envio {
         this.costo = builder.costo;
         this.estadoEnvio = builder.estadoEnvio;
     }
+
+    // Getters
+    public String getIdEnvio() { return idEnvio; }
+    public String getDireccionOrigen() { return direccionOrigen; }
+    public String getDireccionDestino() { return direccionDestino; }
+    public long getCosto() { return costo; }
+    public EstadoEnvio getEstadoEnvio() { return estadoEnvio; }
+
+    // Setters
+    public void setIdEnvio(String idEnvio) { this.idEnvio = idEnvio; }
+    public void setDireccionOrigen(String direccionOrigen) { this.direccionOrigen = direccionOrigen; }
+    public void setDireccionDestino(String direccionDestino) { this.direccionDestino = direccionDestino; }
+    public void setCosto(long costo) { this.costo = costo; }
+    public void setEstadoEnvio(EstadoEnvio estadoEnvio) { this.estadoEnvio = estadoEnvio; }
+
     public static class Builder{
         private String idEnvio;
         private String direccionOrigen;

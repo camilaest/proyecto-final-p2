@@ -12,6 +12,7 @@ import org.uniquindio.edu.co.poo.sistemadeenviosp2.controller.CrudClienteControl
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.TipoUsuario;
+import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.UsuarioFactory;
 
 public class CrudClienteViewController {
 
@@ -43,6 +44,9 @@ public class CrudClienteViewController {
 
     @FXML
     private TableColumn<Cliente, String> columnNombre;
+
+    @FXML
+    private TableColumn<Cliente, String > columMetodo;
 
     @FXML
     private Label lblCedula;
@@ -124,8 +128,7 @@ public class CrudClienteViewController {
         columTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
         columUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsuario()));
         columEdad.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getEdad()).asObject());
-
-
+        columMetodo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMetodoCreacion()));
 
     }
 
@@ -161,9 +164,8 @@ public class CrudClienteViewController {
             return;
         }
 
-        Cliente nuevo = new Cliente(nombre, cedula, telefono, email, edadP,  usuario, contraseña, TipoUsuario.CLIENTE);
-        //como manejar edad, edad no se limpia en la tabla ???
-        db.agregarCliente(nuevo); // se agrega a la lista observable
+        Cliente nuevo = UsuarioFactory.createCliente(nombre, cedula, telefono, email, edadP, usuario, contraseña);
+        db.agregarCliente(nuevo);
         listaClientes.add(nuevo);
         limpiarCampos();
 

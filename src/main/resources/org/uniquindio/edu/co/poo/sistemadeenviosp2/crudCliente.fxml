@@ -37,6 +37,7 @@
             <TableColumn fx:id="columTelefono" prefWidth="75.0" text="Telefono" />
             <TableColumn fx:id="columEmail" prefWidth="75.0" text="Email" />
             <TableColumn fx:id="columUsuario" prefWidth="75.0" text="Usuario" />
+            <TableColumn fx:id="columMetodo" prefWidth="100.0" text="Método" />
         </columns>
       </TableView>
       <Button fx:id="btnEliminarCliente" layoutX="571.0" layoutY="409.0" mnemonicParsing="false" onAction="#onEliminarCliente" text="Eliminar" />

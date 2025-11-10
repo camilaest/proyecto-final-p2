@@ -4,19 +4,23 @@ import java.util.ArrayList;
 
 public class Empresa {
     private DataBase dataBase;
-    private ArrayList<Usuario> listaUsuarios;
-    private ArrayList<Envio> listaEnvios;
+    private long monto;
     private static Empresa intance;
     private Empresa() {
-        this.dataBase = new DataBase();
-        this.listaUsuarios = new ArrayList<>();
-        this.listaEnvios = new ArrayList<>();
+        this.dataBase = dataBase.getInstance(dataBase);
+        this.monto = 0;
     }
     public static Empresa getInstance(){
         if(intance == null){
             intance = new Empresa();
         }
         return intance;
+    }
+    public long getMonto() {
+        return monto;
+    }
+    public void setMonto(long monto) {
+        this.monto = monto;
     }
 
 }
