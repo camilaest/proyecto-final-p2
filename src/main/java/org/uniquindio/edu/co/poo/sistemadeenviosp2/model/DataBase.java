@@ -7,8 +7,9 @@ public class DataBase {
     private ArrayList<Administrador> listaAdministrador;
     private ArrayList<Cliente> listaClientes;
     private ArrayList<Repartidor > listaRepartidores;
-    private ArrayList<Envio> listaEnvios;
+    private ArrayList<EnvioBase> listaEnvios;
     private DataBase db;
+    private Tarifa tarifa;
 
 
 
@@ -18,6 +19,7 @@ public class DataBase {
         this.listaClientes = new ArrayList<>();
         this.listaRepartidores = new ArrayList<>();
         this.listaEnvios = new ArrayList<>();
+        this.tarifa= new Tarifa (1,2,3);
         inicializarDatos();
     }
 
@@ -27,6 +29,22 @@ public class DataBase {
         }
         return db;
 
+    }
+
+    public DataBase getDb() {
+        return db;
+    }
+
+    public void setDb(DataBase db) {
+        this.db = db;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
     }
 
     public ArrayList<Usuario> getListaUsuarios() {
@@ -61,11 +79,11 @@ public class DataBase {
         this.listaRepartidores = listaRepartidores;
     }
 
-    public ArrayList<Envio> getListaEnvios() {
+    public ArrayList<EnvioBase> getListaEnvios() {
         return listaEnvios;
     }
 
-    public void setListaEnvios(ArrayList<Envio> listaEnvios) {
+    public void setListaEnvios(ArrayList<EnvioBase> listaEnvios) {
         this.listaEnvios = listaEnvios;
     }
 
@@ -199,6 +217,30 @@ public class DataBase {
                 listaRepartidores.remove(repartidor);
                 centinela = true;
                 break;
+            }
+        }
+        return centinela;
+    }
+
+
+
+    //CRUD DE ENVIO
+
+
+    public boolean agregarEnvio(EnvioBase envio) {
+        boolean centinela = false;
+        if (!verificarEnvio(envio.getIdEnvio())) {
+            listaEnvios.add(envio);
+            centinela = true;
+        }
+        return centinela;
+    }
+
+    public boolean verificarEnvio(String identificacion) {
+        boolean centinela = false;
+        for (EnvioBase base : listaEnvios) {
+            if (base.getIdEnvio().equals(identificacion)) {
+                centinela = true;
             }
         }
         return centinela;

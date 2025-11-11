@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Empresa {
     private DataBase dataBase;
     private ArrayList<Usuario> listaUsuarios;
-    private ArrayList<Envio> listaEnvios;
+    private ArrayList<EnvioBase> listaEnvios;
     private static Empresa intance;
     private Empresa() {
         this.dataBase = new DataBase();

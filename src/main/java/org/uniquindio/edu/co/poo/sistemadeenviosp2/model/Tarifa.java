@@ -1,70 +1,63 @@
 package org.uniquindio.edu.co.poo.sistemadeenviosp2.model;
 
+import java.util.ArrayList;
+
 public class Tarifa {
-    public double distancia;
-    public double peso;
-    public double volumen;
-    public boolean prioridad;
+    public double valorPorDistancia;
+    public double valorPorKg;
+    public double valorPorVolumen;
 
 
-    public Tarifa(double distancia, double peso, double volumen, boolean prioridad) {
-        this.distancia = 0;
-        this.peso = peso;
-        this.volumen = volumen;
-        this.prioridad = prioridad;
+
+    public Tarifa(double valorPorDistancia, double valorPorKg, double volumen) {
+        this.valorPorDistancia = 1;
+        this.valorPorKg = 5000;
+        this.valorPorVolumen = 3000;
+
     }
 
     public Tarifa (){}
 
     public double getDistancia() {
-        return distancia;
+        return valorPorDistancia;
     }
 
     public void setDistancia(double distancia) {
-        this.distancia = distancia;
+        this.valorPorDistancia = distancia;
     }
 
     public double getPeso() {
-        return peso;
+        return valorPorKg;
     }
 
     public void setPeso(double peso) {
-        this.peso = peso;
+        this.valorPorKg = peso;
     }
 
     public double getVolumen() {
-        return volumen;
+        return valorPorVolumen;
     }
 
     public void setVolumen(double volumen) {
-        this.volumen = volumen;
+        this.valorPorVolumen = volumen;
     }
 
-    public boolean isPrioridad() {
-        return prioridad;
-    }
 
-    public void setPrioridad(boolean prioridad) {
-        this.prioridad = prioridad;
-    }
 
-    public double calcularCostoEstimado (double distanciaEnvio, double pesoEnvio, double volumenEnvio, boolean prioridadEnvio   ){
-        distancia = 1000;
-        peso = 5000;
-        volumen =2000;
-        double prioridadValor =0;
-        double valorDistancia =0;
-        double valorPeso =0;
-        double valorVolumen =0;
-        double valorTotal =0;
-        if (prioridadEnvio == true){
-            prioridadValor = 10000;
+    public double calcularCosto(ArrayList<Paquete> listaPaquetes, double distanciaRecorrida) {
+        double total = 0;
+
+        for (Paquete paqueteAux : listaPaquetes) {
+            double costoPorPeso = paqueteAux.getPeso() * valorPorKg;
+            double costoPorVolumen = paqueteAux.getDimension() * valorPorVolumen;
+
+            double costoPaquete = costoPorPeso + costoPorVolumen;
+            total += costoPaquete;
         }
-        valorDistancia = distanciaEnvio * distancia;
-        valorPeso = pesoEnvio * peso;
-        valorVolumen = volumenEnvio * volumen;
-        valorTotal = valorDistancia + valorPeso + valorVolumen + prioridadValor;
-        return valorTotal;
 
+        double costoPorDistacia= valorPorDistancia*distanciaRecorrida;
+        total+= costoPorDistacia;
+
+        return total;
     }
 }
