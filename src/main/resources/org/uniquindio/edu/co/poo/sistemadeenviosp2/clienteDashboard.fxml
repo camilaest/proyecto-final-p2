@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.ClienteDashboardViewController">
+    <top>
+        <HBox spacing="16" styleClass="header">
+            <Label text="Dashboard Cliente" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label text="Saldo:" />
+            <Label fx:id="lblMontoCliente" />
+            <Button text="Cerrar sesión" onAction="#onLogout" styleClass="danger-button" />
+        </HBox>
+    </top>
+    <center>
+        <TabPane>
+            <tabs>
+                <Tab text="Mis direcciones" closable="false">
+                    <VBox spacing="10">
+                        <padding><Insets topRightBottomLeft="15"/></padding>
+                        <TableView fx:id="tblDirecciones" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colDirId" text="ID" prefWidth="180" />
+                                <TableColumn fx:id="colDirAlias" text="Alias" prefWidth="140" />
+                                <TableColumn fx:id="colDirOrigen" text="Origen" prefWidth="220" />
+                                <TableColumn fx:id="colDirDestino" text="Destino" prefWidth="220" />
+                            </columns>
+                        </TableView>
+                        <TitledPane text="Gestionar dirección" expanded="false">
+                            <GridPane hgap="10" vgap="8">
+                                <padding><Insets topRightBottomLeft="10"/></padding>
+                                <columnConstraints>
+                                    <ColumnConstraints percentWidth="20" />
+                                    <ColumnConstraints percentWidth="30" />
+                                    <ColumnConstraints percentWidth="20" />
+                                    <ColumnConstraints percentWidth="30" />
+                                </columnConstraints>
+                                <children>
+                                    <Label text="Alias" />
+                                    <TextField fx:id="txtAliasDir" GridPane.columnIndex="1" />
+                                    <Label text="Origen" GridPane.columnIndex="2" />
+                                    <TextField fx:id="txtOrigenDir" GridPane.columnIndex="3" />
+                                    <Label text="Destino" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtDestinoDir" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <HBox spacing="8" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                                        <Button text="Agregar" onAction="#onAgregarDireccion" styleClass="secondary-button" />
+                                        <Button text="Editar" onAction="#onEditarDireccion" />
+                                        <Button text="Eliminar" onAction="#onEliminarDireccion" styleClass="danger-button" />
+                                    </HBox>
+                                </children>
+                            </GridPane>
+                        </TitledPane>
+                    </VBox>
+                </Tab>
+                <Tab text="Solicitar envío" closable="false">
+                    <VBox spacing="10">
+                        <padding><Insets topRightBottomLeft="15"/></padding>
+                        <GridPane hgap="10" vgap="8">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="25" />
+                                <ColumnConstraints percentWidth="75" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Origen" />
+                                <TextField fx:id="txtOrigen" GridPane.columnIndex="1" />
+                                <Label text="Destino" GridPane.rowIndex="1" />
+                                <TextField fx:id="txtDestino" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label text="Distancia (km)" GridPane.rowIndex="2" />
+                                <TextField fx:id="txtDistancia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label text="Peso (kg)" GridPane.rowIndex="3" />
+                                <TextField fx:id="txtPeso" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Label text="Volumen (m3)" GridPane.rowIndex="4" />
+                                <TextField fx:id="txtVolumen" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <Label text="Prioridad" GridPane.rowIndex="5" />
+                                <CheckBox fx:id="chkPrioridad" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <Label text="Costo estimado" GridPane.rowIndex="6" />
+                                <Label fx:id="lblCostoEstimado" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <Label text="Método de pago" GridPane.rowIndex="7" />
+                                <ComboBox fx:id="cmbMetodoEnvio" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                            </children>
+                        </GridPane>
+                        <Button text="Solicitar" onAction="#onSolicitarEnvio" styleClass="primary-button" />
+                    </VBox>
+                </Tab>
+                <Tab text="Pagos" closable="false">
+                    <VBox spacing="10">
+                        <padding><Insets topRightBottomLeft="15"/></padding>
+                        <TitledPane text="Consignar saldo" expanded="false">
+                            <HBox spacing="8">
+                                <padding><Insets topRightBottomLeft="10"/></padding>
+                                <TextField fx:id="txtConsignar" promptText="Valor a consignar" />
+                                <Button text="Consignar" onAction="#onConsignar" styleClass="secondary-button" />
+                            </HBox>
+                        </TitledPane>
+                        <Separator />
+                        <Label text="Monto a pagar" />
+                        <TextField fx:id="txtMontoPago" promptText="Monto" />
+                        <Label text="Método de pago" />
+                        <ComboBox fx:id="cmbMetodoPago" />
+                        <Button text="Pagar" onAction="#onPagar" styleClass="secondary-button" />
+                        <Label fx:id="lblResultadoPago" />
+                        <TitledPane text="Historial de pagos" expanded="true">
+                            <TableView fx:id="tblPagos" prefHeight="200">
+                                <columns>
+                                    <TableColumn fx:id="colPagoId" text="ID" prefWidth="150" />
+                                    <TableColumn fx:id="colPagoFecha" text="Fecha" prefWidth="120" />
+                                    <TableColumn fx:id="colPagoMetodo" text="Método" prefWidth="140" />
+                                    <TableColumn fx:id="colPagoMonto" text="Monto" prefWidth="100" />
+                                    <TableColumn fx:id="colPagoTributos" text="Tributos" prefWidth="100" />
+                                    <TableColumn fx:id="colPagoTotal" text="Total" prefWidth="100" />
+                                </columns>
+                            </TableView>
+                        </TitledPane>
+                    </VBox>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>

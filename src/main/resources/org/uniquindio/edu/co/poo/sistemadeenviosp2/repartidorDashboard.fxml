@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.RepartidorDashboardViewController">
+    <top>
+        <HBox spacing="16" styleClass="header">
+            <Label text="Dashboard Repartidor" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button text="Cerrar sesión" onAction="#onLogout" styleClass="danger-button" />
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="12">
+            <padding><Insets topRightBottomLeft="20"/></padding>
+            <TitledPane text="Envío asignado" expanded="true">
+                <GridPane hgap="10" vgap="8">
+                    <padding><Insets topRightBottomLeft="10"/></padding>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="20" />
+                        <ColumnConstraints percentWidth="80" />
+                    </columnConstraints>
+                    <children>
+                        <Label text="ID:" />
+                        <Label fx:id="lblIdEnvio" GridPane.columnIndex="1" />
+                        <Label text="Origen:" GridPane.rowIndex="1" />
+                        <Label fx:id="lblOrigen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Destino:" GridPane.rowIndex="2" />
+                        <Label fx:id="lblDestino" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Estado:" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="cmbEstado" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    </children>
+                </GridPane>
+            </TitledPane>
+            <Button text="Actualizar estado" onAction="#onActualizarEstado" styleClass="secondary-button" />
+        </VBox>
+    </center>
+</BorderPane>
