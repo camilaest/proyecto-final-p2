@@ -48,8 +48,32 @@ public class IniciarSesionController {
                 return TipoUsuario.CLIENTE;
             }
         }
-
+        // Verificar entre repartidores
+        for (org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Repartidor r : db.getListaRepartidores()) {
+            if (usuario.equals(r.getUsuario()) && contraseña.equals(r.getContraseña())) {
+                return TipoUsuario.REPARTIDOR;
+            }
+        }
         return null; // No coincide con ningún usuario
+    }
+
+    public org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Usuario obtenerUsuario(String usuario, String contraseña) {
+        for (Administrador a : db.getListaAdministrador()) {
+            if (usuario.equals(a.getUsuario()) && contraseña.equals(a.getContraseña())) {
+                return a;
+            }
+        }
+        for (Cliente c : db.getListaClientes()) {
+            if (usuario.equals(c.getUsuario()) && contraseña.equals(c.getContraseña())) {
+                return c;
+            }
+        }
+        for (org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Repartidor r : db.getListaRepartidores()) {
+            if (usuario.equals(r.getUsuario()) && contraseña.equals(r.getContraseña())) {
+                return r;
+            }
+        }
+        return null;
     }
 
 

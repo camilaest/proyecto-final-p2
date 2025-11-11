@@ -18,9 +18,17 @@ public class App extends Application {
 
     private Stage primaryStage;
     private final DataBase db = new DataBase();
+    private org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Usuario currentUser;
 
     public DataBase getDb(){
         return db;
+    }
+
+    public void setCurrentUser(org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Usuario user){
+        this.currentUser = user;
+    }
+    public org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Usuario getCurrentUser(){
+        return currentUser;
     }
 
     @Override
@@ -70,6 +78,7 @@ public class App extends Application {
             controller.setDataBase(db);
 
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/org/uniquindio/edu/co/poo/sistemadeenviosp2/styles.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -89,9 +98,61 @@ public class App extends Application {
             controller.setDataBase(db);
 
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/org/uniquindio/edu/co/poo/sistemadeenviosp2/styles.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openAdminDashboard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/adminDashboard.fxml"));
+            Parent root = loader.load();
+            org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.AdminDashboardViewController controller = loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/org/uniquindio/edu/co/poo/sistemadeenviosp2/styles.css").toExternalForm());
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openRepartidorDashboard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/repartidorDashboard.fxml"));
+            Parent root = loader.load();
+            org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.RepartidorDashboardViewController controller = loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/org/uniquindio/edu/co/poo/sistemadeenviosp2/styles.css").toExternalForm());
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void openClienteDashboard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/org/uniquindio/edu/co/poo/sistemadeenviosp2/clienteDashboard.fxml"));
+            Parent root = loader.load();
+            org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.ClienteDashboardViewController controller = loader.getController();
+            controller.setApp(this);
+            controller.setDataBase(db);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/org/uniquindio/edu/co/poo/sistemadeenviosp2/styles.css").toExternalForm());
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

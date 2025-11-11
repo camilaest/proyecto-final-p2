@@ -11,7 +11,6 @@ import org.uniquindio.edu.co.poo.sistemadeenviosp2.App;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.controller.CrudClienteController;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Cliente;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.DataBase;
-import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.TipoUsuario;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.UsuarioFactory;
 
 public class CrudClienteViewController {
@@ -102,19 +101,18 @@ public class CrudClienteViewController {
             return;
         }
 
-        // Eliminar directamente de la base de datos y de la lista observable
-        db.getListaClientes().remove(seleccionado);
-        listaClientes.remove(seleccionado);
-
-        mostrarAlerta("Éxito Cliente eliminado correctamente");
-
-        // (opcional) limpiar campos después de eliminar
-        limpiarCampos();
-
+        boolean eliminado = db.eliminarCliente(seleccionado.getId());
+        if (eliminado) {
+            listaClientes.remove(seleccionado);
+            mostrarAlerta("Éxito Cliente eliminado correctamente");
+            limpiarCampos();
+        } else {
+            mostrarAlerta("Error No fue posible eliminar el cliente");
+        }
     }
 
     @FXML
-    void inicialize(){
+    void initialize(){
 
 
 
@@ -128,12 +126,28 @@ public class CrudClienteViewController {
         columTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
         columUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsuario()));
         columEdad.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getEdad()).asObject());
-        columMetodo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMetodoCreacion()));
+        // Columna método: sin dato asociado en Cliente, se deja en blanco
+        if (columMetodo != null) {
+            columMetodo.setCellValueFactory(cellData -> new SimpleStringProperty(""));
+        }
 
+        // Listener para cargar datos al seleccionar en la tabla
+        tblCliente.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            if (newSel != null) {
+                selectCliente = newSel;
+                txtNombreCompelto.setText(newSel.getNombreCompleto());
+                txtCedula.setText(newSel.getId());
+                txtTelefono.setText(newSel.getTelefono());
+                txtEmail.setText(newSel.getEmail());
+                txtUsuario.setText(newSel.getUsuario());
+                txtContraseña.setText(newSel.getContraseña());
+                txtEdad.setText(String.valueOf(newSel.getEdad()));
+            }
+        });
     }
 
     private void obtenerClientes() {
-
+        listaClientes.clear();
         listaClientes.addAll(crudClienteController.obtenerClientes());
         tblCliente.setItems(listaClientes);
     }
@@ -147,6 +161,7 @@ public class CrudClienteViewController {
         String usuario = txtUsuario.getText();
         String contraseña = txtContraseña.getText();
         String edad = txtEdad.getText().trim();
+        long monto = 0;
 
         if (nombre.isEmpty() || cedula.isEmpty() || telefono.isEmpty() ||
                 email.isEmpty() || usuario.isEmpty() || contraseña.isEmpty() || edad.isEmpty()) {
@@ -164,11 +179,35 @@ public class CrudClienteViewController {
             return;
         }
 
-        Cliente nuevo = UsuarioFactory.createCliente(nombre, cedula, telefono, email, edadP, usuario, contraseña);
-        db.agregarCliente(nuevo);
-        listaClientes.add(nuevo);
-        limpiarCampos();
+        Cliente nuevo = UsuarioFactory.createCliente(nombre, cedula, telefono, email, edadP, usuario, contraseña, monto);
 
+        boolean existe = db.verificarCliente(cedula);
+        boolean exito;
+        if (existe) {
+            exito = db.actualizarCliente(cedula, nuevo);
+            if (exito) {
+                // actualizar en la lista observable
+                for (int i = 0; i < listaClientes.size(); i++) {
+                    if (listaClientes.get(i).getId().equals(cedula)) {
+                        listaClientes.set(i, nuevo);
+                        break;
+                    }
+                }
+                mostrarAlerta("Éxito Cliente actualizado correctamente");
+            } else {
+                mostrarAlerta("Error No fue posible actualizar el cliente");
+            }
+        } else {
+            exito = db.agregarCliente(nuevo);
+            if (exito) {
+                listaClientes.add(nuevo);
+                mostrarAlerta("Éxito Cliente registrado correctamente");
+            } else {
+                mostrarAlerta("Error No fue posible registrar el cliente (ID duplicado)");
+            }
+        }
+        tblCliente.refresh();
+        limpiarCampos();
     }
 
     @FXML

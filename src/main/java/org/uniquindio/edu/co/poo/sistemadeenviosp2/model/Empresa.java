@@ -7,7 +7,8 @@ public class Empresa {
     private long monto;
     private static Empresa intance;
     private Empresa() {
-        this.dataBase = dataBase.getInstance(dataBase);
+        // Inicializa explícitamente la base de datos para evitar NPE
+        this.dataBase = new DataBase();
         this.monto = 0;
     }
     public static Empresa getInstance(){

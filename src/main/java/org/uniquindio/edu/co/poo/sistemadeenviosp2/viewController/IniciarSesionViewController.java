@@ -54,15 +54,20 @@ public class IniciarSesionViewController {
             return;
         }
 
+        // Establecer usuario actual
+        org.uniquindio.edu.co.poo.sistemadeenviosp2.model.Usuario user = iniciarSesionController.obtenerUsuario(usuario, contraseña);
+        app.setCurrentUser(user);
+
         // Redirigir según el tipo de usuario
         switch (tipo) {
             case ADMINISTRADOR:
-                app.openCrudCliente();  // Interfaz del administrador
-                System.out.println("es admin");
+                app.openAdminDashboard();
                 break;
             case CLIENTE:
-                app.openCrudCliente();  // Debes crear este método en App
-                System.out.println("es cliente");
+                app.openClienteDashboard();
+                break;
+            case REPARTIDOR:
+                app.openRepartidorDashboard();
                 break;
             default:
                 mostrarAlerta("Error", "Tipo de usuario no reconocido");
