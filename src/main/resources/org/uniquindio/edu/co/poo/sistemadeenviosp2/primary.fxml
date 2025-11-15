@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.PrimaryViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.uniquindio.edu.co.poo.sistemadeenviosp2.viewController.PrimaryViewController">
    <children>
-      <Label fx:id="lblTitulo" layoutX="220.0" layoutY="40.0" text="Bienvenidos A Servientrega ">
+      <Label fx:id="lblTitulo" layoutX="76.0" layoutY="32.0" styleClass="label-title" stylesheets="@styles.css" text="Bienvenidos A SistemaDeEnvios.com">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      <Label fx:id="lblIngresar" layoutX="261.0" layoutY="97.0" text="Iniciar Sesion" />
-      <Button fx:id="buttonEntrar" layoutX="270.0" layoutY="128.0" mnemonicParsing="false" onAction="#onOpenEntrar" text="Entrar" />
+      <Label fx:id="lblIngresar" layoutX="231.0" layoutY="93.0" styleClass="label_iniciarSesion-h1" stylesheets="@styles.css" text="Iniciar Sesion" />
+      <Button fx:id="buttonEntrar" layoutX="264.0" layoutY="133.0" mnemonicParsing="false" onAction="#onOpenEntrar" styleClass="button-primary" stylesheets="@styles.css" text="Entrar" />
    </children>
 </AnchorPane>

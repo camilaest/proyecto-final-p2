@@ -11,6 +11,25 @@
     -fx-font-weight: bold;
     -fx-background-radius: 0 0 10 10;
 }
+.label-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2f4f4f;
+}
+
+.button-primary {
+    -fx-background-color: #2a71d0;
+    -fx-text-fill: white;
+    -fx-padding: 8 20 8 20;
+    -fx-background-radius: 10;
+    -fx-font-size: 16px;
+}
+.label_iniciarSesion-h1{
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2f4f4f;
+
+}
 .card {
     -fx-background-color: white;
     -fx-background-radius: 10;
