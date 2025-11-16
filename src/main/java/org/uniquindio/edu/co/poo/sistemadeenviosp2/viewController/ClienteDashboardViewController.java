@@ -4,11 +4,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.App;
 import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -22,6 +30,15 @@ public class ClienteDashboardViewController {
 
     // Header
     @FXML private Label lblMontoCliente;
+
+    @FXML
+    private Button btnGenerarPdf;
+
+    @FXML
+    void onGenererPdf(ActionEvent event) {
+        generarPDF();
+    }
+
 
     // Direcciones (CRUD)
     @FXML private TableView<Direccion> tblDirecciones;
@@ -322,4 +339,143 @@ public class ClienteDashboardViewController {
     private void onLogout(){
         app.openIniciarSesion();
     }
-}
+
+
+
+
+    private void generarPDF() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar historial de pagos");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        fileChooser.setInitialFileName("historial_pagos.pdf");
+
+        File file = fileChooser.showSaveDialog(null);
+        if (file == null) return;
+
+        ObservableList<Pago> pagos = tblPagos.getItems();
+        if (pagos.isEmpty()) return;
+
+        try (PDDocument doc = new PDDocument()) {
+
+            PDPage page = new PDPage();
+            doc.addPage(page);
+            PDPageContentStream content = new PDPageContentStream(doc, page);
+
+            float pageWidth = page.getMediaBox().getWidth();
+
+            // ====================== ENCABEZADO ======================
+            content.setNonStrokingColor(30, 144, 255); // azul
+            content.addRect(0, 750, pageWidth, 50);
+            content.fill();
+
+            content.setNonStrokingColor(255, 255, 255); // blanco
+            content.beginText();
+            content.setFont(PDType1Font.HELVETICA_BOLD, 22);
+            content.newLineAtOffset(30, 770);
+            content.showText("Historial de Pagos");
+            content.endText();
+
+            // Reset color texto
+            content.setNonStrokingColor(0, 0, 0);
+
+            // Posición inicial
+            float y = 680;
+            float rowSpacing = 18;
+
+            content.setFont(PDType1Font.HELVETICA, 12);
+
+            for (Pago pago : pagos) {
+
+                // Si falta espacio → nueva página
+                if (y < 120) {
+                    content.close();
+                    page = new PDPage();
+                    doc.addPage(page);
+                    content = new PDPageContentStream(doc, page);
+                    y = 720;
+                }
+
+                // ===== SECCIÓN DEL PAGO =====
+                // Línea superior
+                content.moveTo(30, y);
+                content.lineTo(570, y);
+                content.stroke();
+
+                y -= rowSpacing;
+
+                // ID
+                content.beginText();
+                content.newLineAtOffset(40, y);
+                content.showText("ID:  " + pago.getIdPago());
+                content.endText();
+                y -= rowSpacing;
+
+                // Fecha
+                content.beginText();
+                content.newLineAtOffset(40, y);
+                content.showText("Fecha:  " + pago.getFechaPago());
+                content.endText();
+                y -= rowSpacing;
+
+                // Método
+                content.beginText();
+                content.newLineAtOffset(40, y);
+                content.showText("Método:  " + pago.getMetodoDePago().name());
+                content.endText();
+                y -= rowSpacing;
+
+                // Monto
+                content.beginText();
+                content.newLineAtOffset(40, y);
+                content.showText("Monto:  " + pago.getMonto());
+                content.endText();
+                y -= rowSpacing;
+
+                // Tributos
+                content.beginText();
+                content.newLineAtOffset(40, y);
+                content.showText("Tributos:  " + pago.getTributos());
+                content.endText();
+                y -= rowSpacing;
+
+                // Total
+                content.beginText();
+                content.newLineAtOffset(40, y);
+                content.showText("Total:  " + pago.getTotal());
+                content.endText();
+                y -= rowSpacing;
+
+                // Línea inferior
+                y -= 5;
+                content.moveTo(30, y);
+                content.lineTo(570, y);
+                content.stroke();
+
+                y -= 25; // espacio antes del siguiente pago
+            }
+
+            content.close();
+            doc.save(file);
+
+            System.out.println("PDF generado con éxito (por filas).");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+

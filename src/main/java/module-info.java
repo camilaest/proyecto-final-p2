@@ -2,6 +2,7 @@ module org.uniquindio.edu.co.poo.sistemadeenviosp2 {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.controlsfx.controls;
+    requires org.apache.pdfbox;
 
     exports org.uniquindio.edu.co.poo.sistemadeenviosp2;
     exports org.uniquindio.edu.co.poo.sistemadeenviosp2.model;

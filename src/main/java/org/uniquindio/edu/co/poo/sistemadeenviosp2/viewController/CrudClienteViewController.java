@@ -25,6 +25,9 @@ public class CrudClienteViewController {
     private Button btnEliminarCliente;
 
     @FXML
+    private Button btnGenerarPdf;
+
+    @FXML
     private Button btnRegistrarCliente;
 
     @FXML
@@ -246,5 +249,10 @@ public class CrudClienteViewController {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    @FXML
+    void onGenerarPdf(ActionEvent event) {
+
     }
 }
