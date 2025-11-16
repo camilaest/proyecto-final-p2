@@ -18,6 +18,7 @@ import org.uniquindio.edu.co.poo.sistemadeenviosp2.model.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class ClienteDashboardViewController {
@@ -355,116 +356,19 @@ public class ClienteDashboardViewController {
         ObservableList<Pago> pagos = tblPagos.getItems();
         if (pagos.isEmpty()) return;
 
-        try (PDDocument doc = new PDDocument()) {
+        GeneradorDocumentoPDF generador = new GeneradorHistorialPagosPDF(new ArrayList<>(pagos));
 
-            PDPage page = new PDPage();
-            doc.addPage(page);
-            PDPageContentStream content = new PDPageContentStream(doc, page);
-
-            float pageWidth = page.getMediaBox().getWidth();
-
-            // ENCABEZADO
-            content.setNonStrokingColor(30, 144, 255); // azul
-            content.addRect(0, 750, pageWidth, 50);
-            content.fill();
-
-            content.setNonStrokingColor(255, 255, 255); // blanco
-            content.beginText();
-            content.setFont(PDType1Font.HELVETICA_BOLD, 22);
-            content.newLineAtOffset(30, 770);
-            content.showText("Historial de Pagos");
-            content.endText();
-
-
-            content.setNonStrokingColor(0, 0, 0);
-
-            // Posición inicial
-            float y = 680;
-            float rowSpacing = 18;
-
-            content.setFont(PDType1Font.HELVETICA, 12);
-
-            for (Pago pago : pagos) {
-
-
-                if (y < 120) {
-                    content.close();
-                    page = new PDPage();
-                    doc.addPage(page);
-                    content = new PDPageContentStream(doc, page);
-                    y = 720;
-                }
-
-
-                content.moveTo(30, y);
-                content.lineTo(570, y);
-                content.stroke();
-
-                y -= rowSpacing;
-
-                // ID
-                content.beginText();
-                content.newLineAtOffset(40, y);
-                content.showText("ID:  " + pago.getIdPago());
-                content.endText();
-                y -= rowSpacing;
-
-                // Fecha
-                content.beginText();
-                content.newLineAtOffset(40, y);
-                content.showText("Fecha:  " + pago.getFechaPago());
-                content.endText();
-                y -= rowSpacing;
-
-                // Método
-                content.beginText();
-                content.newLineAtOffset(40, y);
-                content.showText("Método:  " + pago.getMetodoDePago().name());
-                content.endText();
-                y -= rowSpacing;
-
-                // Monto
-                content.beginText();
-                content.newLineAtOffset(40, y);
-                content.showText("Monto:  " + pago.getMonto());
-                content.endText();
-                y -= rowSpacing;
-
-                // Tributos
-                content.beginText();
-                content.newLineAtOffset(40, y);
-                content.showText("Tributos:  " + pago.getTributos());
-                content.endText();
-                y -= rowSpacing;
-
-                // Total
-                content.beginText();
-                content.newLineAtOffset(40, y);
-                content.showText("Total:  " + pago.getTotal());
-                content.endText();
-                y -= rowSpacing;
-
-
-                y -= 5;
-                content.moveTo(30, y);
-                content.lineTo(570, y);
-                content.stroke();
-
-                y -= 25;
-            }
-
-            content.close();
-            doc.save(file);
-
-            System.out.println("PDF generado con éxito.");
-
-        } catch (Exception e) {
+        try {
+            generador.generar(file);  // Template Method
+            System.out.println("PDF generado con Template Method");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
     }
+
+
+
 
 
 
