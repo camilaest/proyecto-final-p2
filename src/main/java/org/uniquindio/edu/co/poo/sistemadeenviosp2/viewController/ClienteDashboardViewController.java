@@ -363,7 +363,7 @@ public class ClienteDashboardViewController {
 
             float pageWidth = page.getMediaBox().getWidth();
 
-            // ====================== ENCABEZADO ======================
+            // ENCABEZADO
             content.setNonStrokingColor(30, 144, 255); // azul
             content.addRect(0, 750, pageWidth, 50);
             content.fill();
@@ -375,7 +375,7 @@ public class ClienteDashboardViewController {
             content.showText("Historial de Pagos");
             content.endText();
 
-            // Reset color texto
+
             content.setNonStrokingColor(0, 0, 0);
 
             // Posición inicial
@@ -386,7 +386,7 @@ public class ClienteDashboardViewController {
 
             for (Pago pago : pagos) {
 
-                // Si falta espacio → nueva página
+
                 if (y < 120) {
                     content.close();
                     page = new PDPage();
@@ -395,8 +395,7 @@ public class ClienteDashboardViewController {
                     y = 720;
                 }
 
-                // ===== SECCIÓN DEL PAGO =====
-                // Línea superior
+
                 content.moveTo(30, y);
                 content.lineTo(570, y);
                 content.stroke();
@@ -445,19 +444,19 @@ public class ClienteDashboardViewController {
                 content.endText();
                 y -= rowSpacing;
 
-                // Línea inferior
+
                 y -= 5;
                 content.moveTo(30, y);
                 content.lineTo(570, y);
                 content.stroke();
 
-                y -= 25; // espacio antes del siguiente pago
+                y -= 25;
             }
 
             content.close();
             doc.save(file);
 
-            System.out.println("PDF generado con éxito (por filas).");
+            System.out.println("PDF generado con éxito.");
 
         } catch (Exception e) {
             e.printStackTrace();
