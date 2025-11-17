@@ -20,7 +20,7 @@ public class GeneradorHistorialPagosPDF extends GeneradorDocumentoPDF{
     protected void dibujarEncabezado(PDDocument doc, PDPage page, PDPageContentStream content) throws IOException {
         float pageWidth = page.getMediaBox().getWidth();
 
-        // Barra azul
+
         content.setNonStrokingColor(30, 144, 255);
         content.addRect(0, 750, pageWidth, 50);
         content.fill();
@@ -33,7 +33,7 @@ public class GeneradorHistorialPagosPDF extends GeneradorDocumentoPDF{
         content.showText("Historial de Pagos");
         content.endText();
 
-        // Volver a negro
+
         content.setNonStrokingColor(0, 0, 0);
     }
 
@@ -48,7 +48,7 @@ public class GeneradorHistorialPagosPDF extends GeneradorDocumentoPDF{
         for (Pago pago : pagos) {
 
             if (y < 120) {
-                // si se acaba la página → nueva
+
                 content.close();
                 page = new PDPage();
                 doc.addPage(page);
@@ -56,13 +56,13 @@ public class GeneradorHistorialPagosPDF extends GeneradorDocumentoPDF{
                 y = 720;
             }
 
-            // Línea superior
+
             content.moveTo(30, y);
             content.lineTo(570, y);
             content.stroke();
             y -= rowSpacing;
 
-            // Campos (uno debajo de otro)
+
             content.beginText(); content.newLineAtOffset(40, y);
             content.showText("ID: " + pago.getIdPago()); content.endText();
             y -= rowSpacing;
@@ -87,7 +87,7 @@ public class GeneradorHistorialPagosPDF extends GeneradorDocumentoPDF{
             content.showText("Total: " + pago.getTotal()); content.endText();
             y -= rowSpacing;
 
-            // Línea inferior
+
             y -= 5;
             content.moveTo(30, y);
             content.lineTo(570, y);
